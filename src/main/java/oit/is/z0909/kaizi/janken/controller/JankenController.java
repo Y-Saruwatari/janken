@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import oit.is.z0909.kaizi.janken.model.Janken;
+
 @Controller
 @RequestMapping("/janken")
 public class JankenController {
-  @GetMapping
-  public String janken() {
+  @PostMapping
+  public String setname(@RequestParam String name, ModelMap model) {
+    model.addAttribute("name", name);
     return "janken.html";
   }
 }
