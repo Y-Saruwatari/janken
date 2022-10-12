@@ -21,12 +21,7 @@ public class JankenAuthConfiguration {
    */
   @Bean
   public InMemoryUserDetailsManager userDetailsService() {
-    // このクラスの下部にあるPasswordEncoderを利用して，ユーザのビルダ（ログインするユーザを作成するオブジェクト）を作成する
     UserBuilder users = User.builder();
-
-    // UserBuilder usersにユーザ名，パスワード，ロールを指定してbuildする
-    // このときパスワードはBCryptでハッシュ化されている．
-    // ハッシュ化されたパスワードを得るには，この授業のbashターミナルで下記のように末尾にユーザ名とパスワードを指定すると良い(要VPN)
     // $ sshrun htpasswd -nbBC 10 user1/user2 isdev
     UserDetails user1 = users
         .username("user1")
@@ -46,7 +41,7 @@ public class JankenAuthConfiguration {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.formLogin();
     http.authorizeHttpRequests()
-        .mvcMatchers("/janken/**").authenticated();
+        .mvcMatchers("/janken").authenticated();
 
     http.logout().logoutSuccessUrl("/");
     return http.build();
